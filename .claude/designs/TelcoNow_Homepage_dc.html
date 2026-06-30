@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #F5EEFF; color: #0F0F1A; }
+
+    /* Nav hover states */
+    .nav-link { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: color 0.15s, background 0.15s; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+    .btn-ghost-white { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 1.5px solid rgba(255,255,255,0.7); border-radius: 8px; color: #fff; font-size: 14px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; background: transparent; cursor: pointer; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 24px; border: none; border-radius: 8px; background: #A100FF; color: #fff; font-size: 14px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; cursor: pointer; text-decoration: none; transition: background 0.15s, box-shadow 0.15s; }
+    .btn-primary:hover { background: #7500C0; box-shadow: 0 4px 16px rgba(161,0,255,0.35); }
+
+    .btn-primary-lg { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 32px; border: none; border-radius: 8px; background: #A100FF; color: #fff; font-size: 16px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; cursor: pointer; text-decoration: none; transition: background 0.15s, box-shadow 0.15s; }
+    .btn-primary-lg:hover { background: #7500C0; box-shadow: 0 4px 20px rgba(161,0,255,0.4); }
+
+    .btn-ghost-purple { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 28px; border: 1.5px solid #A100FF; border-radius: 8px; background: transparent; color: #A100FF; font-size: 16px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; cursor: pointer; text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .btn-ghost-purple:hover { background: #F5EEFF; }
+
+    .btn-ghost-hero { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 28px; border: 1.5px solid rgba(255,255,255,0.6); border-radius: 8px; background: transparent; color: #fff; font-size: 16px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; cursor: pointer; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+    .btn-ghost-hero:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* Plan card hover */
+    .plan-card { transition: transform 0.18s, box-shadow 0.18s; }
+    .plan-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(70,0,115,0.13); }
+    .plan-card-featured:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(161,0,255,0.22); }
+
+    /* Blog card hover */
+    .blog-card { transition: transform 0.18s, box-shadow 0.18s; }
+    .blog-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(70,0,115,0.12); }
+
+    /* Read more link */
+    .read-more { color: #A100FF; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.15s; }
+    .read-more:hover { gap: 8px; }
+
+    /* Footer links */
+    .footer-link { color: #4A4A5A; font-size: 14px; text-decoration: none; line-height: 2; display: block; transition: color 0.15s; }
+    .footer-link:hover { color: #fff; }
+
+    /* Refer button */
+    .btn-refer { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 28px; border: none; border-radius: 8px; background: #A100FF; color: #fff; font-size: 15px; font-weight: 600; font-family: 'Inter', system-ui, sans-serif; cursor: pointer; white-space: nowrap; transition: background 0.15s, box-shadow 0.15s; }
+    .btn-refer:hover { background: #7500C0; box-shadow: 0 4px 16px rgba(161,0,255,0.32); }
+  </style>
+</helmet>
+
+<!-- ═══════════════════════════════════════════════ HEADER ═══ -->
+<header style="background: #460073; width: 100%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px; height: 64px; display: flex; align-items: center; gap: 0;">
+    <!-- Wordmark -->
+    <a href="#" style="text-decoration: none; flex-shrink: 0;">
+      <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Telco<span style="color: #E5CCFF;">Now</span></span>
+    </a>
+
+    <!-- Centre nav -->
+    <nav style="display: flex; align-items: center; gap: 4px; margin: 0 auto;">
+      <a href="#" class="nav-link">Plans</a>
+      <a href="#" class="nav-link">Coverage</a>
+      <a href="#" class="nav-link">Business</a>
+      <a href="#" class="nav-link">Support</a>
+    </nav>
+
+    <!-- Right actions -->
+    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+      <a href="#" class="btn-ghost-white">Log in</a>
+      <a href="#" class="btn-primary">Get started</a>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════ HERO ════ -->
+<section style="background: #460073; width: 100%; padding-bottom: 0; overflow: hidden;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; height: 440px; gap: 0; position: relative;">
+    <!-- Left content -->
+    <div style="width: 55%; display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(161,0,255,0.25); border: 1px solid rgba(161,0,255,0.4); border-radius: 20px; padding: 5px 14px; width: fit-content;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #A100FF; display: block; box-shadow: 0 0 8px #A100FF;"></span>
+        <span style="color: #E5CCFF; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;">5G Now Live Nationwide</span>
+      </div>
+      <h1 style="font-size: 52px; font-weight: 700; color: #fff; letter-spacing: -0.025em; line-height: 1.08;">Australia's fastest<br/>5G network.</h1>
+      <p style="font-size: 18px; font-weight: 400; color: #E5CCFF; line-height: 1.6; max-width: 480px;">Flexible plans. No lock-in contracts.<br/>Cancel any time.</p>
+      <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
+        <a href="#" class="btn-primary-lg">View plans</a>
+        <a href="#" class="btn-ghost-hero">Check coverage</a>
+      </div>
+    </div>
+
+    <!-- Right: SVG network illustration -->
+    <div style="width: 45%; height: 100%; display: flex; align-items: center; justify-content: flex-end; position: absolute; right: 0; top: 0;">
+      <svg width="580" height="440" viewBox="0 0 580 440" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+        <!-- Background glow -->
+        <ellipse cx="340" cy="220" rx="240" ry="200" fill="url(#heroGlow)" />
+
+        <!-- Concentric rings -->
+        <circle cx="340" cy="220" r="180" stroke="rgba(161,0,255,0.18)" stroke-width="1" fill="none" />
+        <circle cx="340" cy="220" r="140" stroke="rgba(161,0,255,0.22)" stroke-width="1" fill="none" />
+        <circle cx="340" cy="220" r="100" stroke="rgba(161,0,255,0.28)" stroke-width="1.5" fill="none" />
+        <circle cx="340" cy="220" r="60" stroke="rgba(161,0,255,0.4)" stroke-width="2" fill="none" />
+
+        <!-- Hexagonal grid pattern -->
+        <g opacity="0.12" stroke="#E5CCFF" stroke-width="0.8">
+          <polygon points="340,80 370,96 370,128 340,144 310,128 310,96" fill="none" />
+          <polygon points="400,112 430,128 430,160 400,176 370,160 370,128" fill="none" />
+          <polygon points="280,112 310,128 310,160 280,176 250,160 250,128" fill="none" />
+          <polygon points="340,144 370,160 370,192 340,208 310,192 310,160" fill="none" />
+          <polygon points="400,176 430,192 430,224 400,240 370,224 370,192" fill="none" />
+          <polygon points="280,176 310,192 310,224 280,240 250,224 250,192" fill="none" />
+          <polygon points="340,208 370,224 370,256 340,272 310,256 310,224" fill="none" />
+          <polygon points="400,240 430,256 430,288 400,304 370,288 370,256" fill="none" />
+          <polygon points="280,240 310,256 310,288 280,304 250,288 250,256" fill="none" />
+          <polygon points="460,144 490,160 490,192 460,208 430,192 430,160" fill="none" />
+          <polygon points="460,208 490,224 490,256 460,272 430,256 430,224" fill="none" />
+          <polygon points="220,144 250,160 250,192 220,208 190,192 190,160" fill="none" />
+        </g>
+
+        <!-- Signal arcs from centre -->
+        <path d="M 340 220 Q 290 160 340 80" stroke="rgba(161,0,255,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4 6" />
+        <path d="M 340 220 Q 410 160 480 100" stroke="rgba(161,0,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 6" />
+        <path d="M 340 220 Q 200 180 120 130" stroke="rgba(161,0,255,0.35)" stroke-width="1" fill="none" stroke-dasharray="4 6" />
+        <path d="M 340 220 Q 380 300 420 360" stroke="rgba(161,0,255,0.35)" stroke-width="1" fill="none" stroke-dasharray="4 6" />
+        <path d="M 340 220 Q 260 310 200 380" stroke="rgba(161,0,255,0.3)" stroke-width="1" fill="none" stroke-dasharray="4 6" />
+
+        <!-- Node dots -->
+        <circle cx="340" cy="80" r="5" fill="#A100FF" opacity="0.9" />
+        <circle cx="480" cy="100" r="4" fill="#7500C0" opacity="0.8" />
+        <circle cx="120" cy="130" r="4" fill="#7500C0" opacity="0.7" />
+        <circle cx="420" cy="360" r="4" fill="#A100FF" opacity="0.7" />
+        <circle cx="200" cy="380" r="3" fill="#7500C0" opacity="0.6" />
+        <circle cx="510" cy="230" r="3" fill="#E5CCFF" opacity="0.5" />
+        <circle cx="150" cy="250" r="3" fill="#E5CCFF" opacity="0.5" />
+        <circle cx="450" cy="150" r="3" fill="#E5CCFF" opacity="0.6" />
+
+        <!-- Central tower icon -->
+        <g transform="translate(316,188)">
+          <!-- Tower body -->
+          <rect x="21" y="40" width="6" height="24" rx="1" fill="#A100FF" opacity="0.9" />
+          <!-- Tower platform -->
+          <rect x="14" y="37" width="20" height="5" rx="2" fill="#A100FF" />
+          <!-- Crossbars -->
+          <rect x="16" y="47" width="16" height="2" rx="1" fill="#7500C0" />
+          <rect x="18" y="54" width="12" height="2" rx="1" fill="#7500C0" />
+          <!-- Signal waves -->
+          <path d="M 24 10 Q 24 10 24 10" stroke="#A100FF" stroke-width="0" fill="none" />
+          <path d="M 14 28 Q 24 18 34 28" stroke="#A100FF" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9" />
+          <path d="M 8 22 Q 24 8 40 22" stroke="#A100FF" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7" />
+          <path d="M 2 16 Q 24 -2 46 16" stroke="#A100FF" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45" />
+          <!-- 5G badge -->
+          <rect x="28" y="5" width="24" height="14" rx="4" fill="#A100FF" />
+          <text x="40" y="15.5" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="Inter, system-ui, sans-serif">5G</text>
+        </g>
+
+        <!-- Central glow dot -->
+        <circle cx="340" cy="220" r="28" fill="url(#centreGlow)" />
+        <circle cx="340" cy="220" r="8" fill="#A100FF" />
+        <circle cx="340" cy="220" r="4" fill="#fff" opacity="0.9" />
+
+        <defs>
+          <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A100FF" stop-opacity="0.25" />
+            <stop offset="100%" stop-color="#460073" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="centreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A100FF" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="#A100FF" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Trust stats bar -->
+  <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; height: 80px; gap: 0;">
+      <div style="display: flex; align-items: center; gap: 64px;">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.01em;">99.8%</span>
+          <span style="color: #E5CCFF; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;">Network uptime</span>
+        </div>
+        <div style="width: 1px; height: 32px; background: rgba(255,255,255,0.15);"></div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.01em;">4.2M+</span>
+          <span style="color: #E5CCFF; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;">Customers</span>
+        </div>
+        <div style="width: 1px; height: 32px; background: rgba(255,255,255,0.15);"></div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.01em;">★ 4.8</span>
+          <span style="color: #E5CCFF; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;">Award-winning support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ PLANS ═════ -->
+<section style="background: #fff; padding: 80px 0;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px;">
+    <!-- Section header -->
+    <div style="text-align: center; margin-bottom: 48px;">
+      <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #A100FF; margin-bottom: 12px;">Pricing</p>
+      <h2 style="font-size: 32px; font-weight: 700; color: #0F0F1A; letter-spacing: -0.02em;">Simple, honest pricing.</h2>
+    </div>
+
+    <!-- Cards -->
+    <div style="display: flex; gap: 24px; align-items: stretch;">
+
+      <!-- Starter -->
+      <div class="plan-card" style="flex: 1; background: #fff; border: 1px solid #E8E8F0; border-radius: 12px; box-shadow: 0 1px 4px rgba(70,0,115,0.06); padding: 32px; display: flex; flex-direction: column; gap: 0;">
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A5A; margin-bottom: 8px;">Starter</p>
+        <div style="display: flex; align-items: flex-end; gap: 4px; margin-bottom: 4px;">
+          <span style="font-size: 48px; font-weight: 700; color: #460073; letter-spacing: -0.03em; line-height: 1;">$39</span>
+          <span style="font-size: 16px; font-weight: 500; color: #4A4A5A; padding-bottom: 8px;">/month</span>
+        </div>
+        <p style="font-size: 14px; color: #4A4A5A; margin-bottom: 32px;">Great for light users.</p>
+        <div style="height: 1px; background: #E8E8F0; margin-bottom: 28px;"></div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; flex: 1;">
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">15GB data</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Unlimited calls &amp; texts</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Basic 5G</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Email support</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">No lock-in contract</span>
+          </li>
+        </ul>
+        <a href="#" class="btn-ghost-purple" style="width: 100%; border: 1.5px solid #A100FF; border-radius: 8px; background: transparent; color: #A100FF; font-size: 15px; font-weight: 600; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.15s;">Get Starter</a>
+      </div>
+
+      <!-- Plus (Featured) -->
+      <div class="plan-card plan-card-featured" style="flex: 1; background: #fff; border: 2px solid #A100FF; border-radius: 12px; box-shadow: 0 4px 24px rgba(161,0,255,0.14); padding: 32px; display: flex; flex-direction: column; gap: 0; position: relative; margin-top: -8px; margin-bottom: -8px;">
+        <!-- Badge -->
+        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #E5CCFF; color: #460073; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 16px; border-radius: 20px; white-space: nowrap;">Most popular</div>
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #A100FF; margin-bottom: 8px;">Plus</p>
+        <div style="display: flex; align-items: flex-end; gap: 4px; margin-bottom: 4px;">
+          <span style="font-size: 48px; font-weight: 700; color: #460073; letter-spacing: -0.03em; line-height: 1;">$65</span>
+          <span style="font-size: 16px; font-weight: 500; color: #4A4A5A; padding-bottom: 8px;">/month</span>
+        </div>
+        <p style="font-size: 14px; color: #4A4A5A; margin-bottom: 32px;">Perfect for everyday use.</p>
+        <div style="height: 1px; background: #E8E8F0; margin-bottom: 28px;"></div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; flex: 1;">
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#A100FF"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A; font-weight: 500;">50GB data</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#A100FF"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A; font-weight: 500;">Unlimited calls &amp; texts</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#A100FF"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A; font-weight: 500;">Premium 5G</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#A100FF"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A; font-weight: 500;">Priority support</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#A100FF"/><path d="M5 9l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A; font-weight: 500;">No lock-in contract</span>
+          </li>
+        </ul>
+        <a href="#" class="btn-primary" style="width: 100%; height: 44px; font-size: 15px; display: flex; align-items: center; justify-content: center; border-radius: 8px; text-decoration: none;">Get Plus</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="plan-card" style="flex: 1; background: #fff; border: 1px solid #E8E8F0; border-radius: 12px; box-shadow: 0 1px 4px rgba(70,0,115,0.06); padding: 32px; display: flex; flex-direction: column; gap: 0;">
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A5A; margin-bottom: 8px;">Pro</p>
+        <div style="display: flex; align-items: flex-end; gap: 4px; margin-bottom: 4px;">
+          <span style="font-size: 48px; font-weight: 700; color: #460073; letter-spacing: -0.03em; line-height: 1;">$99</span>
+          <span style="font-size: 16px; font-weight: 500; color: #4A4A5A; padding-bottom: 8px;">/month</span>
+        </div>
+        <p style="font-size: 14px; color: #4A4A5A; margin-bottom: 32px;">For power users &amp; families.</p>
+        <div style="height: 1px; background: #E8E8F0; margin-bottom: 28px;"></div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; flex: 1;">
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Unlimited data</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Unlimited calls &amp; texts</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">Ultra 5G</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">24/7 support</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 12px;">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#F5EEFF"/><path d="M5 9l3 3 5-5" stroke="#A100FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size: 15px; color: #0F0F1A;">No lock-in contract</span>
+          </li>
+        </ul>
+        <a href="#" class="btn-ghost-purple" style="width: 100%; border: 1.5px solid #A100FF; border-radius: 8px; background: transparent; color: #A100FF; font-size: 15px; font-weight: 600; height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background 0.15s;">Get Pro</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ PROMO BANNER ═ -->
+<section style="background: #F5EEFF; border-top: 1px solid #E5CCFF; border-bottom: 1px solid #E5CCFF; width: 100%;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px; height: 120px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <!-- Gift icon -->
+      <div style="width: 48px; height: 48px; border-radius: 12px; background: #E5CCFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="13" rx="2" stroke="#460073" stroke-width="1.8"/><path d="M3 12h18" stroke="#460073" stroke-width="1.8"/><path d="M12 8V21" stroke="#460073" stroke-width="1.8"/><path d="M12 8C12 8 9 8 9 5.5C9 4 10 3 11.5 3C13 3 12 5 12 8Z" stroke="#460073" stroke-width="1.5" fill="none"/><path d="M12 8C12 8 15 8 15 5.5C15 4 14 3 12.5 3C11 3 12 5 12 8Z" stroke="#460073" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div>
+        <h2 style="font-size: 22px; font-weight: 700; color: #0F0F1A; letter-spacing: -0.01em; margin-bottom: 4px;">Refer a friend, get one month free.</h2>
+        <p style="font-size: 15px; color: #4A4A5A;">Share your code. When they sign up, you both win.</p>
+      </div>
+    </div>
+    <button class="btn-refer">Refer now</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ BLOG CARDS ══ -->
+<section style="background: #fff; padding: 80px 0;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px;">
+    <!-- Header row -->
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px;">
+      <div>
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #A100FF; margin-bottom: 10px;">Blog</p>
+        <h2 style="font-size: 32px; font-weight: 700; color: #0F0F1A; letter-spacing: -0.02em;">From the TelcoNow blog</h2>
+      </div>
+      <a href="#" class="read-more" style="font-size: 14px; margin-bottom: 6px;">View all articles →</a>
+    </div>
+
+    <div style="display: flex; gap: 24px;">
+
+      <!-- Card 1 -->
+      <div class="blog-card" style="flex: 1; background: #fff; border: 1px solid #E8E8F0; border-radius: 12px; box-shadow: 0 1px 4px rgba(70,0,115,0.06); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="height: 8px; background: #A100FF;"></div>
+        <div style="padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1;">
+          <div>
+            <span style="display: inline-block; background: #F5EEFF; color: #460073; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px;">Technology</span>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; color: #0F0F1A; letter-spacing: -0.01em; line-height: 1.35; margin-bottom: 10px;">5G vs 4G: what actually changes for you</h3>
+            <p style="font-size: 14px; color: #4A4A5A; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Beyond the buzzword — we break down exactly what the switch to 5G means in your everyday life, from streaming to gaming to video calls.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #E8E8F0;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 13px; font-weight: 600; color: #0F0F1A;">Jamie Holt</span>
+              <span style="font-size: 12px; color: #4A4A5A;">14 June 2026</span>
+            </div>
+            <a href="#" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="blog-card" style="flex: 1; background: #fff; border: 1px solid #E8E8F0; border-radius: 12px; box-shadow: 0 1px 4px rgba(70,0,115,0.06); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="height: 8px; background: #460073;"></div>
+        <div style="padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1;">
+          <div>
+            <span style="display: inline-block; background: #F5EEFF; color: #460073; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px;">Tips</span>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; color: #0F0F1A; letter-spacing: -0.01em; line-height: 1.35; margin-bottom: 10px;">How to get the most from your data plan</h3>
+            <p style="font-size: 14px; color: #4A4A5A; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Simple habits and settings that can stretch your gigabytes further — from background app refresh to smarter streaming quality choices.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #E8E8F0;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 13px; font-weight: 600; color: #0F0F1A;">Priya Nair</span>
+              <span style="font-size: 12px; color: #4A4A5A;">8 June 2026</span>
+            </div>
+            <a href="#" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="blog-card" style="flex: 1; background: #fff; border: 1px solid #E8E8F0; border-radius: 12px; box-shadow: 0 1px 4px rgba(70,0,115,0.06); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="height: 8px; background: #7500C0;"></div>
+        <div style="padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1;">
+          <div>
+            <span style="display: inline-block; background: #F5EEFF; color: #460073; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px;">Company</span>
+          </div>
+          <div>
+            <h3 style="font-size: 18px; font-weight: 600; color: #0F0F1A; letter-spacing: -0.01em; line-height: 1.35; margin-bottom: 10px;">Why we removed lock-in contracts</h3>
+            <p style="font-size: 14px; color: #4A4A5A; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">The story of how listening to our customers changed the way we think about commitment — and what it means for you as a TelcoNow member.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #E8E8F0;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 13px; font-weight: 600; color: #0F0F1A;">Sam Delacroix</span>
+              <span style="font-size: 12px; color: #4A4A5A;">2 June 2026</span>
+            </div>
+            <a href="#" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ FOOTER ══ -->
+<footer style="background: #0F0F1A; width: 100%; padding: 64px 0 0;">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 0 48px;">
+    <div style="display: flex; gap: 48px; padding-bottom: 56px;">
+
+      <!-- Col 1: Brand -->
+      <div style="flex: 1.4; display: flex; flex-direction: column; gap: 16px;">
+        <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Telco<span style="color: #E5CCFF;">Now</span></span>
+        <p style="font-size: 14px; color: #4A4A5A; line-height: 1.6;">Fast. Simple. Yours.</p>
+        <p style="font-size: 14px; color: #4A4A5A; line-height: 1.7; max-width: 240px;">Australia's fastest growing 5G network. Built for real people, priced fairly.</p>
+      </div>
+
+      <!-- Col 2: Plans -->
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A5A; margin-bottom: 12px;">Plans</p>
+        <a href="#" class="footer-link">Starter</a>
+        <a href="#" class="footer-link">Plus</a>
+        <a href="#" class="footer-link">Pro</a>
+        <a href="#" class="footer-link">Business</a>
+      </div>
+
+      <!-- Col 3: Support -->
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A5A; margin-bottom: 12px;">Support</p>
+        <a href="#" class="footer-link">Help centre</a>
+        <a href="#" class="footer-link">Contact us</a>
+        <a href="#" class="footer-link">Coverage map</a>
+        <a href="#" class="footer-link">FAQs</a>
+      </div>
+
+      <!-- Col 4: Legal -->
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A5A; margin-bottom: 12px;">Legal</p>
+        <a href="#" class="footer-link">Privacy policy</a>
+        <a href="#" class="footer-link">Terms</a>
+        <a href="#" class="footer-link">Accessibility</a>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="border-top: 1px solid #1E1E2E; padding: 20px 0; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 13px; color: #4A4A5A;">© 2026 TelcoNow Pty Ltd</span>
+      <span style="font-size: 13px; color: #4A4A5A;">All prices include GST</span>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "act_001",
+    "type": "payment",
+    "description": "Monthly bill payment",
+    "timestamp": "2026-06-15T09:23:00Z",
+    "amount": -65.00,
+    "status": "completed"
+  },
+  {
+    "id": "act_002",
+    "type": "data_topup",
+    "description": "Data top-up — 5GB",
+    "timestamp": "2026-06-18T14:05:00Z",
+    "amount": -8.00,
+    "status": "completed"
+  },
+  {
+    "id": "act_003",
+    "type": "plan_change",
+    "description": "Upgraded from Starter to Plus",
+    "timestamp": "2026-06-01T08:00:00Z",
+    "amount": null,
+    "status": "completed"
+  },
+  {
+    "id": "act_004",
+    "type": "addon",
+    "description": "International roaming add-on",
+    "timestamp": "2026-06-20T11:30:00Z",
+    "amount": -15.00,
+    "status": "pending"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "addon_001",
+    "name": "International Roaming",
+    "description": "Calls, texts and data in 40+ countries",
+    "price": 15.00,
+    "active": true,
+    "category": "travel"
+  },
+  {
+    "id": "addon_002",
+    "name": "Extra Data — 5GB",
+    "description": "One-off 5GB data boost, valid for 30 days",
+    "price": 8.00,
+    "active": false,
+    "category": "data"
+  },
+  {
+    "id": "addon_003",
+    "name": "Netflix Bundle",
+    "description": "Netflix Standard included with your plan",
+    "price": 18.00,
+    "active": true,
+    "category": "entertainment"
+  },
+  {
+    "id": "addon_004",
+    "name": "Device Protection",
+    "description": "Accidental damage and theft cover for your phone",
+    "price": 12.00,
+    "active": false,
+    "category": "insurance"
+  }
+]

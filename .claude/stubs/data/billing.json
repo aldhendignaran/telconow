@@ -1,0 +1,15 @@
+{
+  "nextPayment": {
+    "date": "2026-07-15",
+    "amount": 65
+  },
+  "lastPayment": {
+    "date": "2026-06-15",
+    "amount": 65,
+    "status": "paid"
+  },
+  "paymentMethod": {
+    "type": "visa",
+    "last4": "4242"
+  }
+}

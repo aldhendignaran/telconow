@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Inter', system-ui, sans-serif; }
+
+    .form-input {
+      width: 100%;
+      height: 44px;
+      border: 1px solid #E8E8F0;
+      border-radius: 8px;
+      padding: 0 14px;
+      font-size: 15px;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #0F0F1A;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-input:focus {
+      border-color: #A100FF;
+      box-shadow: 0 0 0 3px rgba(161,0,255,0.15);
+    }
+    .form-input::placeholder { color: #B0B0C0; }
+
+    .btn-primary-full {
+      width: 100%;
+      height: 44px;
+      background: #A100FF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary-full:hover {
+      background: #7500C0;
+      box-shadow: 0 4px 16px rgba(161,0,255,0.35);
+    }
+
+    .btn-ghost-full {
+      width: 100%;
+      height: 44px;
+      background: transparent;
+      color: #A100FF;
+      border: 1.5px solid #A100FF;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-ghost-full:hover { background: #F5EEFF; }
+
+    .show-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4A4A5A;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+    .show-toggle:hover { color: #A100FF; }
+
+    .forgot-link {
+      color: #A100FF;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .forgot-link:hover { color: #7500C0; text-decoration: underline; }
+
+    .get-started-link {
+      color: #A100FF;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .get-started-link:hover { color: #7500C0; text-decoration: underline; }
+
+    .check-bullet {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.92);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  </style>
+</helmet>
+
+<div style="display: flex; height: 100vh; min-height: 600px; overflow: hidden;">
+
+  <!-- ═══════════════════ LEFT PANEL ═══════════════════ -->
+  <div style="width: 45%; background: #460073; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+
+    <!-- Wordmark -->
+    <div style="padding: 32px 36px; flex-shrink: 0; position: relative; z-index: 2;">
+      <span style="color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Telco<span style="color: #E5CCFF;">Now</span></span>
+    </div>
+
+    <!-- Centre content -->
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px 80px; position: relative; z-index: 2; gap: 32px;">
+      <div>
+        <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(229,204,255,0.7); margin-bottom: 20px;">Your account</p>
+        <h2 style="font-size: 28px; font-weight: 600; color: #fff; line-height: 1.3; letter-spacing: -0.01em;">Your account.<br/>Your data.<br/>Always in control.</h2>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="check-bullet">
+          <div style="width: 22px; height: 22px; border-radius: 50%; background: rgba(161,0,255,0.35); border: 1px solid rgba(161,0,255,0.6); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#E5CCFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>View real-time usage</span>
+        </div>
+        <div class="check-bullet">
+          <div style="width: 22px; height: 22px; border-radius: 50%; background: rgba(161,0,255,0.35); border: 1px solid rgba(161,0,255,0.6); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#E5CCFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Manage your plan</span>
+        </div>
+        <div class="check-bullet">
+          <div style="width: 22px; height: 22px; border-radius: 50%; background: rgba(161,0,255,0.35); border: 1px solid rgba(161,0,255,0.6); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#E5CCFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Pay your bill</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative SVG — bottom bleed -->
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 1; pointer-events: none;">
+      <svg width="100%" viewBox="0 0 540 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+        <!-- Concentric rings centred bottom-left -->
+        <circle cx="60" cy="320" r="120" stroke="rgba(161,0,255,0.2)" stroke-width="1" fill="none" />
+        <circle cx="60" cy="320" r="180" stroke="rgba(161,0,255,0.14)" stroke-width="1" fill="none" />
+        <circle cx="60" cy="320" r="240" stroke="rgba(161,0,255,0.09)" stroke-width="1" fill="none" />
+        <circle cx="60" cy="320" r="300" stroke="rgba(161,0,255,0.06)" stroke-width="1" fill="none" />
+
+        <!-- Bottom-right geometry cluster -->
+        <circle cx="460" cy="300" r="80" stroke="rgba(229,204,255,0.08)" stroke-width="1" fill="none" />
+        <circle cx="460" cy="300" r="50" stroke="rgba(229,204,255,0.12)" stroke-width="1" fill="none" />
+
+        <!-- Hex cells -->
+        <g stroke="rgba(161,0,255,0.22)" stroke-width="0.8" fill="none">
+          <polygon points="300,200 326,215 326,245 300,260 274,245 274,215" />
+          <polygon points="326,215 352,230 352,260 326,275 300,260 300,230" />
+          <polygon points="274,215 300,230 300,260 274,275 248,260 248,230" />
+          <polygon points="352,260 378,275 378,305 352,320 326,305 326,275" />
+          <polygon points="300,260 326,275 326,305 300,320 274,305 274,275" />
+          <polygon points="248,260 274,275 274,305 248,320 222,305 222,275" />
+        </g>
+
+        <!-- Signal arcs from top-right corner -->
+        <path d="M 480 0 Q 480 80 400 120" stroke="rgba(161,0,255,0.3)" stroke-width="1.5" fill="none" />
+        <path d="M 540 0 Q 540 120 430 170" stroke="rgba(161,0,255,0.2)" stroke-width="1.2" fill="none" />
+        <path d="M 540 40 Q 520 140 450 195" stroke="rgba(161,0,255,0.15)" stroke-width="1" fill="none" />
+
+        <!-- Floating dots -->
+        <circle cx="400" cy="120" r="4" fill="#A100FF" opacity="0.7" />
+        <circle cx="430" cy="170" r="3" fill="#7500C0" opacity="0.5" />
+        <circle cx="352" cy="215" r="3" fill="#E5CCFF" opacity="0.4" />
+        <circle cx="300" cy="200" r="4" fill="#A100FF" opacity="0.5" />
+
+        <!-- Gradient wash at bottom -->
+        <rect x="0" y="200" width="540" height="120" fill="url(#bottomFade)" />
+        <defs>
+          <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#460073" stop-opacity="0" />
+            <stop offset="100%" stop-color="#460073" stop-opacity="0.6" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ RIGHT PANEL ══════════════════ -->
+  <div style="width: 55%; background: #fff; display: flex; align-items: center; justify-content: center; padding: 48px;">
+    <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 0;">
+
+      <!-- Heading -->
+      <div style="margin-bottom: 32px;">
+        <h1 style="font-size: 32px; font-weight: 700; color: #0F0F1A; letter-spacing: -0.02em; margin-bottom: 8px;">Welcome back.</h1>
+        <p style="font-size: 15px; color: #4A4A5A; line-height: 1.5;">Sign in to your TelcoNow account</p>
+      </div>
+
+      <!-- Form -->
+      <form style="display: flex; flex-direction: column; gap: 20px;" onsubmit="return false;">
+
+        <!-- Email field -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 600; color: #0F0F1A; letter-spacing: 0.01em;">Email address</label>
+          <input class="form-input" type="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+
+        <!-- Password field -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <label style="font-size: 13px; font-weight: 600; color: #0F0F1A; letter-spacing: 0.01em;">Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div style="position: relative; display: flex; align-items: center;">
+            <input class="form-input" type="password" placeholder="••••••••" autocomplete="current-password" style="padding-right: 48px;" id="pw-input" />
+            <button type="button" class="show-toggle" style="position: absolute; right: 0;" onclick="(function(){var i=document.getElementById('pw-input');i.type=i.type==='password'?'text':'password';})()">
+              <!-- Eye icon -->
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M1 9C1 9 4 3 9 3C14 3 17 9 17 9C17 9 14 15 9 15C4 15 1 9 1 9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="9" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary-full" style="margin-top: 4px;">Sign in</button>
+
+      </form>
+
+      <!-- Sign up -->
+      <p style="text-align: center; font-size: 14px; color: #4A4A5A; margin-top: 32px;">
+        Don't have an account? <a href="#" class="get-started-link">Get started →</a>
+      </p>
+
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1280, &quot;height&quot;: 800}}"></script>
+</body>
+</html>

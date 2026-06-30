@@ -1,0 +1,8 @@
+[
+  { "month": "Jan 2026", "usedGB": 28.1, "totalGB": 15, "cost": 39 },
+  { "month": "Feb 2026", "usedGB": 32.4, "totalGB": 50, "cost": 65 },
+  { "month": "Mar 2026", "usedGB": 45.2, "totalGB": 50, "cost": 65 },
+  { "month": "Apr 2026", "usedGB": 41.8, "totalGB": 50, "cost": 65 },
+  { "month": "May 2026", "usedGB": 50.0, "totalGB": 50, "cost": 65 },
+  { "month": "Jun 2026", "usedGB": 38.4, "totalGB": 50, "cost": 65 }
+]
