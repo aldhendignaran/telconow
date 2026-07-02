@@ -41,8 +41,21 @@ is completed.
 | `app/loading.tsx` | ✅ Built | Full-page skeleton matching hero + pricing grid dimensions |
 | `app/login/page.tsx` | ✅ Built | TN-007 — Server Component; getServerSession redirect + Suspense wrapper for LoginPanel |
 | `components/LoginPanel.tsx` | ✅ Built | TN-007 — "use client"; two-panel layout, email+password form, signIn("credentials"), callbackUrl passthrough |
-| `app/dashboard/layout.tsx` | ✅ Specced | In `.claude/brief/solution-architecture.md` — sidebar nav, shared across all sub-routes |
-| `app/dashboard/page.tsx` + `_components/*` | ✅ Specced | In `.claude/brief/build-spec.md` — 9 widgets, not 5 |
+| `app/dashboard/layout.tsx` | ✅ Built | Auth guard + Sidebar; `getServerSession` → redirect if no session |
+| `app/dashboard/page.tsx` | ✅ Built | Composes all 9 widgets; `Promise.all` parallel data fetch |
+| `app/dashboard/loading.tsx` | ✅ Built | Full skeleton matching widget grid layout |
+| `app/dashboard/_components/PlanSummaryCard.tsx` | ✅ Built | Static `DATA_LIMIT` lookup by planTier (dataLimitGB not in TCustomerPlan) |
+| `app/dashboard/_components/UsageMeterCard.tsx` | ✅ Built | Two-segment overage bar, 3 StatTiles |
+| `app/dashboard/_components/BillingCard.tsx` | ✅ Built | Inline VisaIcon SVG; only Visa implemented (Mastercard/Amex flagged as gap) |
+| `app/dashboard/_components/ActivityFeed.tsx` | ✅ Built | 4 activity types → icon tiles; Badge per type+status; "View all" → /dashboard/billing |
+| `app/dashboard/_components/SupportTickets.tsx` | ✅ Built | Recent 3 tickets; status + priority badges; empty state with CTA |
+| `app/dashboard/_components/UsageHistoryChart.tsx` | ✅ Built | Bar chart from TUsageHistoryPoint[]; overage bars use bg-warning-accent; tooltip on hover |
+| `app/dashboard/_components/AddOnsCard.tsx` | ✅ Built | First 3 add-ons; composites AddonToggle client component |
+| `app/dashboard/_components/UpgradeBanner.tsx` | ✅ Built | Renders null if planTier==="pro" OR usedGB/totalGB<0.75 |
+| `components/Sidebar.tsx` | ✅ Built | Server Component; 6 nav items with lucide icons; UserChip + LogoutButton at bottom |
+| `components/LogoutButton.tsx` | ✅ Built | "use client"; signOut with callbackUrl="/" |
+| `app/dashboard/actions.ts` | ✅ Built | toggleAddonAction server action; revalidatePath /dashboard + /dashboard/addons |
+| `app/dashboard/addons/_components/addon-toggle.tsx` | ✅ Built | "use client"; useTransition + toggleAddonAction |
 | `app/dashboard/usage/page.tsx` | ⚠️ Specced — minimum viable only | No dedicated design provided, see `.claude/brief/usage-feature.md` |
 | `app/dashboard/billing/page.tsx` | ⚠️ Specced — minimum viable only | No dedicated design provided, see `.claude/brief/billing-feature.md` |
 | `app/dashboard/addons/page.tsx` | ✅ Specced | In `.claude/brief/addons-feature.md` — includes Server Action toggle |
@@ -163,6 +176,20 @@ affected feature ships:**
 - Defer `/dashboard/usage`, `/dashboard/billing`, `/dashboard/settings`
   until real design exists, or build the minimum-viable versions and
   flag clearly in the UI that they're provisional
+
+### Session 16 — 2 Jul 2026 — Dashboard page + all 9 widgets built
+
+Completed the full dashboard implementation. All 6 remaining files written:
+`ActivityFeed.tsx`, `SupportTickets.tsx`, `UsageHistoryChart.tsx`, `AddOnsCard.tsx`,
+`UpgradeBanner.tsx`, and `app/dashboard/page.tsx`.
+
+TypeScript checked clean (0 errors). Dev server confirmed: all 7 widget labels
+render in HTML after authenticated session (`admin@admin` / `admin`).
+
+Known gaps carried forward:
+- Mastercard/Amex SVGs not implemented in BillingCard — only Visa
+- ActivityFeed "View all →" routes to `/dashboard/billing` as fallback (no dedicated activity page)
+- UsageHistoryChart uses simple bar divs, not a charting library — acceptable for MVP
 
 ### Session 15 — 2 Jul 2026 — UpgradeBanner story (TN-017)
 

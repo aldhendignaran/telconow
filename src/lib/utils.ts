@@ -30,6 +30,27 @@ export function formatDateLong(isoDate: string): string {
 }
 
 /**
+ * Format an ISO date string as "15 Jun 2026" for display (dashboard dates).
+ * Uses UTC date parts to avoid timezone shifts on date-only strings.
+ * formatDateMed("2026-07-15") → "15 Jul 2026"
+ */
+export function formatDateMed(isoDate: string): string {
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const d = new Date(isoDate);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+/**
+ * Format an ISO date string as "1 Jun" for billing cycle display (no year).
+ * formatCycleDate("2026-06-01") → "1 Jun"
+ */
+export function formatCycleDate(isoDate: string): string {
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const d = new Date(isoDate);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
+}
+
+/**
  * Time-aware greeting using AEST/AEDT.
  * "Australia/Sydney" handles DST automatically — no manual offset needed.
  * Returns "Good morning" | "Good afternoon" | "Good evening"
