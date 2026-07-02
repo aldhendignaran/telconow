@@ -1,3 +1,5 @@
+"use client";
+
 import NextLink from "next/link";
 import { LayoutGrid, Clock, CreditCard, PlusCircle, AlignLeft, User } from "lucide-react";
 import { SidebarNavItem } from "@/components/ui/molecules/SidebarNavItem";
