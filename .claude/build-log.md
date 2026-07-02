@@ -12,11 +12,12 @@ is completed.
 |---|---|---|
 | `types/data-model.ts` | ✅ Specced | In `.claude/brief/data-model.md` — single source, copy verbatim into code |
 | `types/index.ts` | ✅ Specced | In `.claude/stubs/auth-scaffold.md` — re-exports data-model.ts |
-| `lib/mock-db.ts` | ✅ Specced | In `.claude/stubs/auth-scaffold.md` — matches real account.json shape |
+| `lib/mock-db.ts` | ✅ Built | Two test users (Alex Chen / Plus, Sarah Chen / Starter); findCustomerByEmail + findCustomerById |
 | `lib/mock-data.ts` | ✅ Specced | Split across `.claude/brief/usage-feature.md`, `billing-feature.md`, `addons-feature.md`, `support-feature.md` |
 | `lib/money.ts` | ✅ Specced | In `.claude/brief/data-model.md` — `dollarsToCents()` + `formatAUD()` |
-| `lib/auth.ts` | ✅ Specced | In `.claude/stubs/auth-scaffold.md` — ready to implement |
-| `lib/rate-limit.ts` | ✅ Specced | In `.claude/brief/auth-spec.md` — Upstash sketch, wire before production |
+| `lib/auth.ts` | ✅ Built | CredentialsProvider + jwt/session callbacks; bcrypt compare; NEXTAUTH_SECRET from env |
+| `lib/mock-db.ts` | ✅ Built | Two test users (Alex Chen / Plus, Sarah Chen / Starter); findCustomerByEmail + findCustomerById |
+| `lib/rate-limit.ts` | ✅ Built | Bypasses when UPSTASH_REDIS_REST_URL unset (dev); uses Upstash sliding window in production |
 | `lib/utils.ts` | ✅ Specced | In `.claude/brief/solution-architecture.md` — `cn()`, `formatDate()`, `getGreeting()` |
 | `lib/contentful.ts` | ✅ Specced | In `.claude/brief/contentful-setup.md` — now includes `getBlogPosts()` |
 | `app/api/auth/[...nextauth]/route.ts` | ✅ Specced | In `.claude/stubs/auth-scaffold.md` |
