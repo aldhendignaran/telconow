@@ -24,10 +24,20 @@ is completed.
 | `app/dashboard/actions.ts` | ✅ Specced | In `.claude/brief/addons-feature.md` — `toggleAddonAction` Server Action |
 | `middleware.ts` | ✅ Specced | In `.claude/stubs/auth-scaffold.md` |
 | `tailwind.config.ts` | ✅ Specced | In `.claude/designs/tokens.md` — real purple palette |
+| `components/SiteHeader.tsx` | ✅ Built | TN-001 — Server Component, uses NavLink + Container; NavLink updated to dark-bg colours |
+| `components/SiteFooter.tsx` | ✅ Built | TN-002 — Server Component, uses Container + Stack + Cluster + Text + Link atoms |
+| `components/TrustBar.tsx` | ✅ Built | No story yet — built from HeroSection AC + design HTML. 3 stats + dividers inside HeroSection |
+| `components/HeroSection.tsx` | ✅ Built | TN-003 — Server Component; SVG extracted to HeroIllustration.tsx; TrustBar composed inside section |
+| `components/HeroIllustration.tsx` | ✅ Built | Colocated SVG — aria-hidden, only used by HeroSection |
+| `components/PlansSection.tsx` | ✅ Built | TN-004 — async Server Component; maps TContentfulPlan→TPlanCatalogueEntry; exports PlansSectionSkeleton |
+| `lib/contentful.ts` | ✅ Built | getPlans / getHomepageSetting / getBlogPosts; cache tag "homepage" |
+| `components/PromoBanner.tsx` | ✅ Built | TN-005 — static Server Component; gift SVG inlined; CTA is `<a href="#">` with button classes |
+| `components/BlogSection.tsx` | ✅ Built | TN-006 — async Server Component; exports BlogSectionSkeleton; formatDateLong added to lib/utils.ts |
 | `components/ui/button.tsx` | ✅ Specced | In `.claude/ui/button.md` — added `ghost-white` variant |
 | `components/ui/card.tsx` | ✅ Specced | In `.claude/ui/card.md` — no changes needed, tokens stayed compatible |
 | `components/ui/badge.tsx` | ✅ Specced | In `.claude/ui/badge.md` — 6 variants now (added `info`, renamed `accent`→`purple`) |
-| `app/page.tsx` (Homepage) | ✅ Specced | In `.claude/brief/build-spec.md` — header, hero, stats, pricing, promo, blog, footer |
+| `app/page.tsx` (Homepage) | ✅ Built | Composes SiteHeader + HeroSection + PlansSection + PromoBanner + BlogSection + SiteFooter; Suspense boundaries around async sections |
+| `app/loading.tsx` | ✅ Built | Full-page skeleton matching hero + pricing grid dimensions |
 | `app/login/page.tsx` | ✅ Specced | In `.claude/brief/build-spec.md` — matches original spec, palette only change |
 | `app/login/_components/login-form.tsx` | ✅ Specced | In `.claude/brief/build-spec.md` |
 | `app/dashboard/layout.tsx` | ✅ Specced | In `.claude/brief/solution-architecture.md` — sidebar nav, shared across all sub-routes |
@@ -152,6 +162,108 @@ affected feature ships:**
 - Defer `/dashboard/usage`, `/dashboard/billing`, `/dashboard/settings`
   until real design exists, or build the minimum-viable versions and
   flag clearly in the UI that they're provisional
+
+### Session 13 — 2 Jul 2026 — app/page.tsx + Contentful setup
+
+Built `app/page.tsx` (composes all homepage components with Suspense boundaries) and `app/loading.tsx` (full-page skeleton).
+
+Fixed Contentful: space had wrong content types (basic/plus/premium schema, wrong field names). Deleted old plan entries + content type, recreated all three content types (`plan`, `homepageSetting`, `blogPost`) via Management API, populated with correct entries (Starter/Plus/Pro plans, 1 homepage setting, 3 blog posts), published all. Fixed `CONTENTFUL_ACCESS_TOKEN` in `.env.local` — was set to CFPAT personal access token, now set to correct CDA token.
+
+### Session 12 — 1 Jul 2026 — BlogSection (TN-006)
+
+Built `components/BlogSection.tsx` (async Server Component) and added `formatDateLong()` to `lib/utils.ts`.
+
+**Design vs story deviations (design won both):**
+- Header h2 is 32px in the design; `SectionHeader` molecule renders `text-2xl` (24px) — built the left header column manually with `text-[32px]`, overriding `Heading level={2}` default via className/tailwind-merge. Did not use `SectionHeader`.
+- Accent bar colour order: story note says `[accent, accent-hover, panel]`; design shows `[accent, panel, accent-hover]` — used design order.
+
+**Component decisions:**
+- try/catch inside the component — same PlansSection pattern — because "section heading still visible on error" AC can't be met by page.tsx-level error handling.
+- `TContentfulBlogPost` used directly — no mapped type needed, fields map 1:1 to display requirements.
+- `BlogCard` as a local function (same pattern as PlansSection's `PlanCard`).
+- Card footer: raw `<div className="flex items-center justify-between …">` — no `gap-*` class so the "use Cluster" composition rule doesn't apply.
+- Author block: `Stack className="gap-0.5"` (2px, overrides Stack default via tailwind-merge).
+- `cn("h-2 w-full", accentBars[index])` — complete static class strings in the array, Tailwind scans them correctly.
+- `BlogSectionSkeleton` exported as named export for `<Suspense fallback>` in app/page.tsx.
+
+### Session 11 — 1 Jul 2026 — PromoBanner (TN-005)
+
+Built `components/PromoBanner.tsx`. Static Server Component — no data fetching, no loading/error states.
+
+Key decisions:
+- Outer `<section>` used directly (not `Section` layout primitive) because `Section` forces `py-16/20` padding and this component needs a fixed `h-[120px]` flex-centred layout.
+- Left side: `Cluster className="gap-5"` — `gap-5` (20px) overrides the Cluster default `gap-2` via tailwind-merge. Established override pattern.
+- Copy block: plain `<div>` with `mb-1` on the heading — not a flex-col div, so the Stack composition rule doesn't apply.
+- Heading: `text-[22px] font-bold tracking-tight text-text-primary` per story note (no named token at 22px).
+- Sub-copy: `text-[15px] text-text-secondary` (design: 15px / `#4A4A5A`).
+- CTA: `<a href="#">` with Button primary/md Tailwind classes + `shrink-0` (story AC: "does not wrap or shrink"). Never wrap Button in anchor — established project pattern.
+- Gift SVG: inlined as local `GiftIcon` function. Stroke colour `#460073` as hex — SVG stroke attrs can't use CSS custom properties.
+
+### Session 10 — 1 Jul 2026 — PlansSection (TN-004)
+
+Built `components/PlansSection.tsx` (async Server Component), created
+`lib/contentful.ts` (getPlans/getHomepageSetting/getBlogPosts), and made
+three minor non-breaking additions to existing files.
+
+**Modifications to existing files:**
+- `Section.tsx` — added `id?: string` prop (needed for `id="plans"` anchor scroll)
+- `Badge.tsx` — added `className?: string` prop (needed for absolute-positioning the "Most popular" pill)
+- `types/contentful.ts` — added `description?: string` to TContentfulPlan.fields (per story note — must also add the field in Contentful UI)
+
+**PlansSection decisions:**
+- Error handling via try/catch inside the component — not page.tsx — because the AC requires "section heading is still visible on error", which only works if the component renders the fallback itself. The note saying "error handling in page.tsx" contradicts the AC; AC wins.
+- `PlanCard` extracted as a local function (not a registered component — only used inside PlansSection).
+- Check icon built as local inline SVG per story note ("not a lucide icon").
+- CTA buttons rendered as NextLink with button Tailwind classes (established project pattern).
+- `formatAUD(monthlyAUD).replace(/\.00$/, "")` for price display → `$39` not `$39.00`.
+- Featured card uses `-my-2` offset inside CSS Grid; grid overflow visible by default makes the protrude-above/below effect work.
+- `PlansSectionSkeleton` exported as a named export — used by page.tsx as `<Suspense fallback={<PlansSectionSkeleton />}>`.
+- `description` field maps to `p.fields.description ?? ""` — defaults to empty string until Contentful field is added. The Contentful plan content type still needs a `description` Short text field added in the Contentful UI.
+
+### Session 9 — 1 Jul 2026 — HeroSection (TN-003) + TrustBar
+
+Built `components/TrustBar.tsx` (no story file — built entirely from HeroSection
+AC + design HTML data), `components/HeroIllustration.tsx` (SVG extraction,
+aria-hidden), and `components/HeroSection.tsx`.
+
+Key decisions:
+- CTA links use plain `<a>` elements with button Tailwind classes (same pattern
+  as SiteHeader) — `href="#plans"` is a same-page anchor, not a Next.js route.
+- SVG extracted to HeroIllustration.tsx as the story notes suggest; avoids a
+  100-line HeroSection. All SVG camelCase attribute conversions applied.
+- TrustBar owns its own `border-t border-white/10` outer wrapper and its own
+  Container — placed inside `<section>` after Container so the border spans
+  full width while content aligns with the max-w constraint.
+- Stack gap-0.5 (2px) override used for stat value+label pairs in TrustBar.
+- `Cluster gap={4} className="mt-2"` for CTA row: 16px gap between buttons,
+  8px extra top margin on top of Stack's 24px gap = 32px total from sub-copy
+  to CTAs (matches design's gap+margin-top stack).
+
+### Session 8 — 1 Jul 2026 — SiteFooter (TN-002)
+
+Built `components/SiteFooter.tsx`. Pure Server Component. Four-column layout
+uses Cluster (outer row, `gap-12`, `items-start`) + Stack (per-column, brand
+`flex-[1.4]`, others `flex-1`). Column headings use `Text variant="label"
+color="secondary"`. Links use `Link variant="inverse"`. Bottom bar uses a
+`Cluster className="justify-between"` with `border-t border-panel-alt`.
+Wordmark uses `NextLink` directly (same pattern as SiteHeader — avoids
+fighting Link atom's variant colour classes).
+
+Token note: `bg-panel-alt` and `border-panel-alt` both resolve to `#1E1E2E`.
+The HTML design uses `#0F0F1A` for the footer bg (slightly darker) and
+`#1E1E2E` for the bottom bar hairline — making the divider visible in the
+design. Our token system doesn't have a separate bg token for `#0F0F1A`,
+so the divider will be invisible at the token level. Flag for a future token
+pass if pixel-fidelity is required.
+
+### Session 7 — 1 Jul 2026 — SiteHeader (TN-001)
+
+Built `components/SiteHeader.tsx`. Server Component; `"use client"` boundary
+lives inside NavLink as specified. Fixed NavLink inactive colours from
+`text-text-primary hover:text-accent` (light-bg) to `text-text-onDarkMuted
+hover:text-text-inverse` — NavLink is documented as SiteHeader-specific so
+the correction is in-scope. CTA buttons rendered as NextLink to avoid invalid
+`<a><button>` HTML; ghost-white and primary button classes applied directly.
 
 ### Session 6 — 30 Jun 2026 — Pre-build spec audit and fixes
 

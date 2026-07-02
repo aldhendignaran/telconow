@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TelcoNow — Australia's fastest 5G network",
+  title: "TelcoNow — Australia's fastest 5G network from local",
   description: "TelcoNow customer portal and marketing site.",
 };
 

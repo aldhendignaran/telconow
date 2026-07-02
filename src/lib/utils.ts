@@ -18,6 +18,18 @@ export function formatDate(isoDate: string): string {
 }
 
 /**
+ * Format an ISO date string as "14 June 2026" for display (blog post dates).
+ * Use formatDate() for DD/MM/YYYY (account/billing contexts).
+ */
+export function formatDateLong(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+/**
  * Time-aware greeting using AEST/AEDT.
  * "Australia/Sydney" handles DST automatically — no manual offset needed.
  * Returns "Good morning" | "Good afternoon" | "Good evening"

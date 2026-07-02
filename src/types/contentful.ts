@@ -10,6 +10,8 @@ export interface TContentfulPlan {
     monthlyPriceAUD: number;
     /** undefined = unlimited */
     dataLimitGB?: number;
+    /** Marketing copy — e.g. "Perfect for everyday use." Add to Contentful plan content type before going live. */
+    description?: string;
     features: string[];
     highlighted: boolean;
     sortOrder: number;
