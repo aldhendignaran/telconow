@@ -56,7 +56,7 @@ export function RaiseTicketForm() {
         </div>
         <div>
           <p className="text-sm font-semibold text-text-primary">Ticket raised successfully</p>
-          <p className="mt-0.5 text-xs text-text-secondary">We'll get back to you as soon as possible.</p>
+          <p className="mt-0.5 text-xs text-text-secondary">We&apos;ll get back to you as soon as possible.</p>
         </div>
         <button
           onClick={() => setSuccess(false)}
