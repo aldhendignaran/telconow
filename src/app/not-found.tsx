@@ -23,7 +23,7 @@ export default function NotFound() {
       </p>
       <p className="mb-1 text-xl font-semibold text-text-inverse">Page not found</p>
       <p className="mb-8 text-sm text-text-onDarkMuted">
-        The page you're looking for doesn't exist or has been moved.
+        The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
 
       <NextLink
