@@ -86,7 +86,7 @@
 | `PlansSection` | `components/PlansSection.tsx` | `stories/PlansSection.md` | Contentful: Plan | HomePage | ✅ Built |
 | `PromoBanner` | `components/PromoBanner.tsx` | `stories/PromoBanner.md` | None | HomePage | ✅ Built |
 | `BlogSection` | `components/BlogSection.tsx` | `stories/BlogSection.md` | Contentful: BlogPost | HomePage | ✅ Built |
-| `LoginPanel` | `components/LoginPanel.tsx` | `stories/LoginPanel.md` | NextAuth | LoginPage |
+| `LoginPanel` | `components/LoginPanel.tsx` | `stories/LoginPanel.md` | NextAuth | LoginPage | ✅ Built |
 | `Sidebar` | `components/Sidebar.tsx` | `stories/Sidebar.md` | None | AppShell |
 | `AppShell` | `components/AppShell.tsx` | `stories/AppShell.md` | None | DashboardPage |
 | `PlanSummaryCard` | `components/PlanSummaryCard.tsx` | `stories/PlanSummaryCard.md` | `/api/stub/account` | DashboardPage |

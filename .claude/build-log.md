@@ -38,8 +38,8 @@ is completed.
 | `components/ui/badge.tsx` | ✅ Specced | In `.claude/ui/badge.md` — 6 variants now (added `info`, renamed `accent`→`purple`) |
 | `app/page.tsx` (Homepage) | ✅ Built | Composes SiteHeader + HeroSection + PlansSection + PromoBanner + BlogSection + SiteFooter; Suspense boundaries around async sections |
 | `app/loading.tsx` | ✅ Built | Full-page skeleton matching hero + pricing grid dimensions |
-| `app/login/page.tsx` | ✅ Specced | In `.claude/brief/build-spec.md` — matches original spec, palette only change |
-| `app/login/_components/login-form.tsx` | ✅ Specced | In `.claude/brief/build-spec.md` |
+| `app/login/page.tsx` | ✅ Built | TN-007 — Server Component; getServerSession redirect + Suspense wrapper for LoginPanel |
+| `components/LoginPanel.tsx` | ✅ Built | TN-007 — "use client"; two-panel layout, email+password form, signIn("credentials"), callbackUrl passthrough |
 | `app/dashboard/layout.tsx` | ✅ Specced | In `.claude/brief/solution-architecture.md` — sidebar nav, shared across all sub-routes |
 | `app/dashboard/page.tsx` + `_components/*` | ✅ Specced | In `.claude/brief/build-spec.md` — 9 widgets, not 5 |
 | `app/dashboard/usage/page.tsx` | ⚠️ Specced — minimum viable only | No dedicated design provided, see `.claude/brief/usage-feature.md` |
@@ -162,6 +162,43 @@ affected feature ships:**
 - Defer `/dashboard/usage`, `/dashboard/billing`, `/dashboard/settings`
   until real design exists, or build the minimum-viable versions and
   flag clearly in the UI that they're provisional
+
+### Session 15 — 2 Jul 2026 — UpgradeBanner story (TN-017)
+
+Completed `stories/UpgradeBanner.md` (TN-017). Purely presentational component — no data fetching, no loading/error state of its own.
+
+Key flags raised:
+- Dynamic plan copy ("Upgrade to Pro") is hardcoded in design — if Starter-tier users also need the banner, copy must become a prop
+- "$99/mo" price is hardcoded — may need to derive from plan catalog prop
+- "Upgrade now" and "Compare plans →" CTA destinations are `href="#"` in design — need product decision before building
+- Pro-tier suppression: banner must also check `planTier === "pro"` and render nothing even if usage ≥ 75%
+
+All 10 dashboard stories now complete (TN-008 through TN-017).
+
+### Session 14 — 2 Jul 2026 — Dashboard component stories (TN-008 to TN-016)
+
+Completed story files for all 9 dashboard components. TN-008 through TN-015 were written in the previous context window; TN-016 (AddOnsCard) completed at the start of this session.
+
+Stories written:
+
+| ID | Story file | Key flags |
+|---|---|---|
+| TN-008 | `stories/AppShell.md` | Mobile sidebar not specced — known gap |
+| TN-009 | `stories/Sidebar.md` | Avatar bg: design uses bg-accent, atom uses bg-accent-tint2 — override with className |
+| TN-010 | `stories/PlanSummaryCard.md` | `dataLimitGB` not in TCustomerPlan — add to account.json + type before building |
+| TN-011 | `stories/UsageMeterCard.md` | `formatCycleDate()` needed for "D MMM" format; badge at 76.8% shows warning (inconsistent with 80% threshold label) |
+| TN-012 | `stories/BillingCard.md` | Mastercard/Amex SVGs not in design — resolve before building BillingCard |
+| TN-013 | `stories/ActivityFeed.md` | "View all →" destination undefined in build-spec; subtitle context text (e.g. "5GB added") not in activity.json |
+| TN-014 | `stories/SupportTickets.md` | "high" priority badge colour undefined; 0 open badge variant unspecced |
+| TN-015 | `stories/UsageHistoryChart.md` | current-month + over-cap visual conflict not shown in design; current-month style takes precedence per AC |
+| TN-016 | `stories/AddOnsCard.md` | `billingType` field missing from TAddon — needed for "/mo" vs "one-off" price suffix; sub-detail text ("Asia Pacific", "Standard HD") not in addons.json |
+
+**Pending before building any dashboard component:**
+- Add `formatCycleDate()` to `lib/utils.ts` (needed by UsageMeterCard — TN-011)
+- Add `dataLimitGB` to `account.json` + `TCustomerPlan` type (needed by PlanSummaryCard — TN-010)
+- Add `billingType: "monthly" | "once"` to `addons.json` + `TAddon` type (needed by AddOnsCard — TN-016)
+- Decide "View all →" destination for ActivityFeed (TN-013)
+- Source/decide Mastercard + Amex SVGs for BillingCard (TN-012)
 
 ### Session 13 — 2 Jul 2026 — app/page.tsx + Contentful setup
 
