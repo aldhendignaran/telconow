@@ -30,6 +30,19 @@ const CUSTOMERS: TCustomer[] = [
       status: "active",
     },
   },
+  {
+    id: "cust_admin",
+    name: "Admin",
+    email: "admin@admin",
+    passwordHash: "$2a$12$9lSKHzUSTnwQaBQH9R2TseBnBKYADfq8.Jt1vNB.vdRgr6Q7l8RV6",
+    plan: {
+      planName: "Pro",
+      planTier: "pro",
+      renewalDate: "2026-07-15",
+      monthlyCostAUD: dollarsToCents(99),
+      status: "active",
+    },
+  },
 ];
 
 export async function findCustomerByEmail(email: string): Promise<TCustomer | null> {
