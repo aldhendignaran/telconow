@@ -118,18 +118,44 @@ export async function toggleAddon(_customerId: string, addonId: string): Promise
 
 // ─── Tickets ──────────────────────────────────────────────────────────────────
 
-export async function getTickets(): Promise<TTicket[]> {
-  const raw = readStub<
-    { id: string; subject: string; status: string; priority: string; createdAt: string; updatedAt: string }[]
-  >("tickets");
+let ticketsStore: TTicket[] | null = null;
 
-  return raw.map((t) => ({
-    id: t.id,
-    subject: t.subject,
-    description: "",
-    status: t.status as TTicketStatus,
-    priority: t.priority as TTicketPriority,
-    createdAt: t.createdAt,
-    updatedAt: t.updatedAt,
-  }));
+function getTicketsStore(): TTicket[] {
+  if (!ticketsStore) {
+    const raw = readStub<
+      { id: string; subject: string; status: string; priority: string; createdAt: string; updatedAt: string }[]
+    >("tickets");
+    ticketsStore = raw.map((t) => ({
+      id: t.id,
+      subject: t.subject,
+      description: "",
+      status: t.status as TTicketStatus,
+      priority: t.priority as TTicketPriority,
+      createdAt: t.createdAt,
+      updatedAt: t.updatedAt,
+    }));
+  }
+  return ticketsStore;
+}
+
+export async function getTickets(): Promise<TTicket[]> {
+  return [...getTicketsStore()];
+}
+
+export async function createTicket(
+  _customerId: string,
+  input: { subject: string; priority: TTicketPriority; description: string }
+): Promise<TTicket> {
+  const store = getTicketsStore();
+  const ticket: TTicket = {
+    id: `TKT-${Math.floor(Math.random() * 9000 + 1000)}`,
+    subject: input.subject,
+    description: input.description,
+    status: "open",
+    priority: input.priority,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  store.unshift(ticket);
+  return ticket;
 }

@@ -56,10 +56,11 @@ is completed.
 | `components/LogoutButton.tsx` | ✅ Built | "use client"; signOut with callbackUrl="/" |
 | `app/dashboard/actions.ts` | ✅ Built | toggleAddonAction server action; revalidatePath /dashboard + /dashboard/addons |
 | `app/dashboard/addons/_components/addon-toggle.tsx` | ✅ Built | "use client"; useTransition + toggleAddonAction |
-| `app/dashboard/usage/page.tsx` | ⚠️ Specced — minimum viable only | No dedicated design provided, see `.claude/brief/usage-feature.md` |
-| `app/dashboard/billing/page.tsx` | ⚠️ Specced — minimum viable only | No dedicated design provided, see `.claude/brief/billing-feature.md` |
-| `app/dashboard/addons/page.tsx` | ✅ Specced | In `.claude/brief/addons-feature.md` — includes Server Action toggle |
-| `app/dashboard/support/page.tsx` | ⚠️ Specced — data model gap | `TTicket` needs a `description` field added before the raise-ticket form works, see `.claude/brief/support-feature.md` |
+| `app/dashboard/usage/page.tsx` | ✅ Built | PageHeader + UsageMeterCard + UsageHistoryChart; loading.tsx skeleton |
+| `app/dashboard/billing/page.tsx` | ✅ Built | BillingCard + payment method placeholder + payment history (filtered from activity); loading.tsx skeleton |
+| `app/dashboard/addons/page.tsx` | ✅ Built | All 4 addons with AddonToggle; category colour tiles; loading.tsx skeleton |
+| `app/dashboard/support/page.tsx` | ✅ Built | Full ticket list (sorted by updatedAt) + RaiseTicketForm client component; loading.tsx skeleton |
+| `app/dashboard/support/_components/raise-ticket-form.tsx` | ✅ Built | "use client"; subject/priority/description fields; createTicketAction + router.refresh(); success state |
 | `app/dashboard/settings/page.tsx` | 🔲 Not specced | No content exists anywhere — placeholder only |
 | `app/not-found.tsx` | 🔲 Not started | |
 | `app/error.tsx` | 🔲 Not started | |
@@ -176,6 +177,24 @@ affected feature ships:**
 - Defer `/dashboard/usage`, `/dashboard/billing`, `/dashboard/settings`
   until real design exists, or build the minimum-viable versions and
   flag clearly in the UI that they're provisional
+
+### Session 17 — 2 Jul 2026 — Dashboard sub-pages built
+
+Built all 4 dashboard sub-pages. Each has a `page.tsx` (Server Component) and `loading.tsx` skeleton.
+
+- `usage/page.tsx` — reuses `UsageMeterCard` + `UsageHistoryChart`; minimal wrapper, no new components needed
+- `billing/page.tsx` — reuses `BillingCard`; adds payment method display (Visa, Update disabled with PCI note), payment history filtered from `getActivity()` where `type === "payment"`
+- `addons/page.tsx` — full 4-addon list with category colour tiles (travel/data/entertainment/insurance), `AddonToggle` per row, active rows get `bg-accent-tint` card tint
+- `support/page.tsx` — full ticket list sorted by `updatedAt` desc, open-count badge; `RaiseTicketForm` client component beside the list
+
+New files:
+- `support/_components/raise-ticket-form.tsx` — "use client"; subject/priority/description fields; calls `createTicketAction` via `useTransition`, then `router.refresh()` to reload the ticket list; inline success state
+
+Data layer additions:
+- `mock-data.ts` — converted `getTickets` to use an in-memory mutable store (same pattern as addons); added `createTicket()` with random TKT-NNNN ID
+- `actions.ts` — added `createTicketAction` server action
+
+TypeScript: 0 errors. All 4 sub-pages verified 200 with authenticated session.
 
 ### Session 16 — 2 Jul 2026 — Dashboard page + all 9 widgets built
 
