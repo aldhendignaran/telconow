@@ -34,8 +34,7 @@ export const authOptions: NextAuthOptions = {
         const valid = await bcrypt.compare(credentials.password, customer.passwordHash);
         if (!valid) return null;
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { passwordHash, ...safeCustomer } = customer;
+        const { passwordHash: _passwordHash, ...safeCustomer } = customer;
         return safeCustomer;
       },
     }),
@@ -49,8 +48,7 @@ export const authOptions: NextAuthOptions = {
       if (token.customer?.id) {
         const fresh = await findCustomerById(token.customer.id);
         if (!fresh) return { ...token, customer: undefined as unknown as TCustomerPublic };
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { passwordHash, ...safeCustomer } = fresh;
+        const { passwordHash: _passwordHash, ...safeCustomer } = fresh;
         token.customer = safeCustomer;
       }
       return token;
